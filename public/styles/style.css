@@ -1,0 +1,274 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    
+}
+.logo-holder{
+    width: 8rem;
+    height: 8rem;
+}
+.logo-holder a img{
+    width: 100%;
+    height: 100%;
+    
+}
+
+#side-navbar{
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-bottom: 4rem;
+    border: 2px 2px 2px solid black;
+    height: 100%;
+    width: 20%;
+    background-color: rgb(188, 187, 187);
+    position: fixed;
+    overflow: hidden;
+
+    
+    
+}
+
+#side-navbar ul{
+list-style: none;
+margin :0;
+padding: 0;
+
+
+}
+.sidebar-main-links{
+    margin-top: 2rem ;
+    margin-left: 1rem;
+
+    padding-bottom:2rem ;
+    
+}
+.sidebar-main-links ul li{
+    margin-bottom: 1rem;
+}
+
+.sidebar-main-links ul a{
+    text-decoration: none;
+    color: rgb(245, 238, 238);
+}
+
+.sidebar-main-links p{
+    color: rgb(237, 231, 231);
+}
+
+
+#heading{
+    padding-left:10rem ;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+#hoarding h2{
+    padding-top: 1rem;
+}
+#hoarding a{
+    text-decoration: none;
+}
+.main-content{
+    /* position: relative; */
+    padding-top: 5rem;
+    padding-left: 50rem;
+    max-width: 60%;
+    height: 70%;
+    
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+   
+}
+.main-content h3{
+    padding-top: 2rem;
+    text-align: center;
+}
+/* .main-content #list-holder{
+    text-align: center;
+} */
+
+
+  
+.main-content  .card{
+   border-radius: 50px;
+   box-shadow: 2px 2px 2px rgb(91, 90, 90); 
+   background-color:rgb(230, 227, 227);
+    
+}
+.main-content  .card img{
+    margin-left:4rem ;
+    margin-right:4rem ;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    max-width: 60%;
+    max-height: 60%;
+    object-fit: cover;
+    border-radius: 50px;
+}
+.wrapper{
+   
+    padding-left: 40%;
+    padding-right:40%;
+    
+    /* width: 55%; */
+    max-width: 100%;
+    height: 100%;
+    text-align: center;
+
+}
+ .wrapper2{
+   
+    padding-left: 50%;
+    padding-right:52%;
+    
+    width: 800px;
+    min-width: 100%;
+    height: 100%;
+    text-align: center;
+
+} 
+
+.wrapper #buttons{
+    text-align: right;
+}
+.wrapper2 #buttons2{
+    
+    text-align: right;
+}
+.my-slider{
+  width: 100%;  
+}
+.my-slider2{
+  width: 800px;
+  /* padding-left: 12%;
+  padding-right: 20%;   */
+}
+
+@media screen and (max-width:768px){
+    body{
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+    #heading{
+        padding-left: 12rem;
+        width: 45rem;
+    }
+    #heading #search-bar {
+        margin-left: 5rem;
+        width: 100%;
+    }
+    #side-navbar{
+        margin-right: 2rem;
+        padding-right: 3rem;
+        text-align: center;
+        width: 10%;
+    }
+    .logo-holder{
+        width: 10rem;
+        height: 10rem;
+        padding-right: 3rem;
+    }
+    .logo-holder img{
+       width: 100%; 
+       object-fit: cover;
+    }
+   
+    .main-content{
+        padding-top: 5rem;
+        margin-top: 4rem;
+
+        padding-left: 30rem;
+        padding-right: 5rem;
+       
+        width: 5rem;
+        height: 10rem;
+        text-align: center;
+    }
+    .wrapper{
+       width: 100%;
+    }
+    
+    .card{
+        max-width: 10rem;
+        min-height: 15rem;
+        /* max-height: 20rem; */
+
+    }
+    .card .image-holder{
+        width: 6rem;
+        height: 6rem;
+    }
+    .card .card-body{
+        font-size: 12px;
+    }
+   
+    
+
+}
+
+@media screen and (max-width:480px){
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    #heading{
+        padding-left: 20rem;
+        width: 25rem;
+    }
+    #heading #search-bar {
+        margin-left: 10rem;
+        width: 100%;
+    }
+    #side-navbar{
+        margin-right: 3rem;
+        padding-right: 3rem;
+        text-align: center;
+    }
+    .logo-holder{
+        width: 8rem;
+        height: 8rem;
+        padding-right: 3rem;
+    }
+    .logo-holder img{
+       width: 100%; 
+       object-fit: cover;
+    }
+    .main-content{
+        padding-top: 5rem;
+        padding-left: 30rem;
+        padding-right: 5rem;
+       
+        width: 20rem;
+        height: 20rem;
+        text-align: center;
+    }
+    
+  
+    
+    .card{
+       min-width: 5rem;
+
+    }
+    .card .image-holder{
+        width: 6rem;
+        height: 6rem;
+    }
+    .card .card-body{
+        font-size: 12px;
+    }
+    /* .card .btn{
+        position:absolute;
+        top: 7rem;
+        right: 24rem;
+    } */
+    
+
+}

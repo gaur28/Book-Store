@@ -1,0 +1,82 @@
+
+
+#books-position{
+    margin: 0;
+    padding: 0;
+    width: 50%;
+     position: absolute; 
+     top: 8rem;
+    left: 20rem;
+    width: 50%;
+    height: 40%;
+} 
+.bookInfo{
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.button-links{
+    padding: 0.5rem;
+}
+
+@media screen and (max-width:768px){
+    
+    section{
+        position: absolute;
+        top: 1rem;
+        left: 20rem;
+        width: 50%;
+    }
+    #books-position{
+        width: 10%;
+        height: 50%;
+        top: 15rem;
+        left: 12rem;
+        font-size: 2.5rem;
+
+    }
+    .info-image-holder{
+        width: 15rem;
+    }
+    .bookInfo{
+        flex-direction: column;
+        align-items: center;
+        padding-right: 5rem;
+
+    }
+    .card .btn{
+        position: static;
+        bottom:2rem ;
+    }
+}
+
+@media screen and (max-width:480px){
+    
+    section{
+        position: absolute;
+       left: 20rem;
+       width: 70%;
+    }
+    #books-position{
+        width: 10%;
+        height: 70%;
+        top: 15rem;
+        left: 10rem;
+        font-size: 5rem;
+
+    }
+    .info-image-holder{
+        width: 10rem;
+    }
+    .bookInfo{
+        flex-direction: column;
+        align-items: center;
+        padding-right: 5rem;
+
+    }
+    .card .btn{
+        position: static;
+        bottom:2rem ;
+    }
+}

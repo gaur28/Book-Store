@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head') %>
+    <link rel="stylesheet" href="/styles/booksStyle.css">
+
+    <link rel="stylesheet" href="/styles/searchResultStyle.css"> 
+</head>
+<body>
+    <head>
+        <%- include('navbar') %> 
+    </head>
+
+    <main>
+        <div id="books-position">
+            <h2>You searched for   </h2>
+            <ul style="list-style: none;">
+                <% for(const books of book){ %> 
+                   <%- include('searchResultListItem', {books:books}) %>
+                <% } %>  
+            </ul>
+
+            
+            
+    </main>
+    
+</body>
+</html>
