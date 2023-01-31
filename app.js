@@ -7,6 +7,7 @@ const mongodb = require('mongodb');
 const path = require('path');
 const routes = require('./route/route');
 const db = require('./data/database');
+const ObjectId = mongodb.ObjectId;
 
 const MongodbStore = MongoDBStore(session);
 const sessionStore = new MongodbStore({
@@ -31,15 +32,36 @@ app.use(session({
 
     }
 }));
-app.use(function(req,res,next){
+app.use( function(req,res,next){
+    //const currentUserId =  req.session.user;
+//     console.log(currentUserId);
     const isAuth = req.session.isAuthenticated;
-    
-    if(!isAuth){
+        
+    //const authorId = req.session.authorId;     
+    if(!isAuth  ){
       return next();
     }
-    res.locals.isAuth = isAuth
+
+
+    res.locals.isAuth = isAuth;
+   // res.locals.authorId= new ObjectId(authorId.id).equals(new ObjectId(currentUserId.id))  
     next()
   });
+
+  app.use(function(req,res,next){
+    const currentUserId =  req.session.user;
+    const authorId = req.session.authorId;     
+    if(!authorId || !currentUserId ){
+        return next();
+      }
+
+      id = new ObjectId(currentUserId.id).equals(new ObjectId(authorId.id));
+      console.log(id)
+      res.locals.authorId= id         
+
+      next();
+  });
+
 
 app.use(express.json());
 app.use(routes);
