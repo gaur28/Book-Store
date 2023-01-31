@@ -28,34 +28,33 @@
               <form action="/signup" method="post" class="rounded bg-white shadow p-5">
                   <h3 class="text-dark fw-bolder fs-4 mb-2">Create an Account</h3>
                   <div class="fx-normal text-muted mb-4">
-                       Already have an account?<a href="/login" class="text-primary fw-bold text-decoration-none"> Sign in here</a>
-                       <a href="#" class="btn btn-light login_with w-100 mb-3">
-                          <img src="/images/gfl/google-icon.svg" alt="google" class="img-fluid me-3">sign in with Google
-                       </a>
-                       
-                       <div class="text-center text-muted text-uppercase mb-3"> or <hr></div>
-                       
+                       <% if(inputData.hasError){ %>
+                        <p style="color: red;"> <%= inputData.message%> 
+                        <% } %>  
                       <div class="form-floating mb-3">
-                          <input type="text" class="form-control" id="name" placeholder="Full name"  name="name" required>
+                          <input type="text" class="form-control" id="name" placeholder="Full name"  name="name" value="<%= inputData.name%>" required>
                           <label for="name">Full Name</label>
                       </div>
                       <div class="form-floating mb-3">
-                          <input type="email" class="form-control" id="email" placeholder="name@example.com"  name="email" required>
+                          <input type="email" class="form-control" id="email" placeholder="name@example.com"  name="email" value="<%= inputData.email%>" required>
                           <label for="email">Email address</label>
                       </div>
+                      
                       <div class="form-floating mb-3">
-                          <input type="email" class="form-control" id="email" placeholder="name@example.com"  name="confirm-email" required>
-                          <label for="email">Confirm email</label>
+                          <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="<%= inputData.password%>" required>
+                          <label for="password">Password</label>
                       </div>
                       <div class="form-floating mb-3">
-                          <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                          <label for="password">Password</label>
+                          <input type="password" class="form-control" id="password" placeholder="Password"  name="confirm-password" value="<%= inputData.confirmPassword%>" required>
+                          <label for="confirm-password">Confirm Password</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
                           <input class="form-check-input" type="checkbox" id="gridCheck" checked>
                           <label class="form-check-label ms-2" for="gridCheck">
                               I Agree <a href="#">Terms & Conditions</a>.
                           </label>
+                        Already have an account?<a href="/login" class="text-primary fw-bold text-decoration-none"> Sign in here</a>
+
                       </div>
                       <button type="submit" class="btn btn-primary submit-btn w-100 my-4 bg-green" name="submit">Submit</button>
 

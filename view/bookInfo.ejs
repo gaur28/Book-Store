@@ -42,9 +42,10 @@
                 <p class="card-text"><%= book.name  %> </p>
                 <p class="card-text"><%= book.summary %> </p>
                 <div >
-                    
+                     <% if(locals.authorId){ %> 
                     <div class="button-links"><a href="/deleteBook/<%= book._id %> " class="btn btn-primary">Delete Book</a></div>
                     <div class="button-links"><a href="/editBook/<%= book._id %> " class="btn btn-primary"> Edit Book</a></div>
+                     <% } %> 
                 </div>
             </div>
             </div>

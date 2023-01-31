@@ -27,24 +27,15 @@
               </div>    
               <form action="/Login" method="post" class="rounded bg-white shadow p-5">
                   <h3 class="text-dark fw-bolder fs-4 mb-2">Login</h3>
-                  <div class="fx-normal text-muted mb-4">
-                       <h4 class="text-dark fw-bolder fs-3 mb-2"></h4>
-                       <a href="#" class="btn btn-light login_with w-100 mb-3">
-                          <img src="/images/gfl/google-icon.svg" alt="google" class="img-fluid me-3">Continue with Google
-                       </a>
-                       <a href="#" class="btn btn-light login_with w-100 mb-3">
-                          <img src="//images/gfl/facebook-icon.svg" alt="facebook" class="img-fluid me-3">Continue with Facebook
-                       </a>
-                       <a href="#" class="btn btn-light login_with w-100 mb-3">
-                          <img src="/images/gfl/linkedin-icon.svg" alt="linkdin" class="img-fluid me-3">Continue with Linkdin
-                       </a>
-                       <div class="text-center text-muted text-uppercase mb-3"> or <hr></div>
+                    <% if(inputData.hasError) {%> 
+                        <p style="color: red;"><%= inputData.message %> </p>
+                        <% } %> 
                       <div class="form-floating mb-3">
-                          <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" required>
+                          <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com" value="<%= inputData.email%>" required>
                           <label for="email" >Email address</label>
                       </div>
                       <div class="form-floating">
-                          <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                          <input type="password" name="password" class="form-control" id="password" placeholder="Password" value="<%= inputData.password%>" required>
                           <label for="floatingPassword">Password</label>
                       </div>
                       <button type="submit" name="submit" class="btn btn-primary submit-btn w-100 my-4 bg-green">Log in</button>
