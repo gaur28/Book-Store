@@ -16,12 +16,12 @@ routes.get('/signup', function(req,res){
       hasError:false,
       name: '',
       email: '',
-      confirmEmail: '',
+      confirmPassword: '',
       password: '',
     };
   }req.session.inputData = null;
 
-  res.render('signup');
+  res.render('signup', {inputData: sessionInputData});
 });
 routes.get('/login', function(req,res){
 
@@ -36,7 +36,7 @@ routes.get('/login', function(req,res){
     };
   }req.session.inputData = null;
 
-  res.render("login");
+  res.render("login",{inputData: sessionInputData});
 });
 
 routes.post('/createNewBook', async function(req,res){//add user id from users collection
@@ -90,15 +90,21 @@ routes.get("/bookInfo/:id", async function (req, res) {
     return res.status(401).render('401');
   }
   const bookId = req.params.id;
+
   const book = await db
     .getDb()
     .collection("book")
     .findOne(
       { _id: new ObjectId(bookId) },
-      { _id:1, title: 0, author: 0, summary: 0 }
+      { _id:1, title: 0, author: 0, summary: 0 ,userId:1}
     );
-  console.log(book);
-  res.render("bookInfo", { book: book });
+    req.session.authorId = {
+      id : new ObjectId(book.userId),
+    }
+
+  req.session.save(function(){
+    res.render("bookInfo", { book: book });
+  })
 });
 
 routes.get("/editBook/:id", async function (req, res) {
@@ -169,8 +175,7 @@ routes.get("/deleteBook/:id", async function (req, res) {
 routes.post('/deleteBook/:id', async function(req,res){
   const bookId = req.params.id;
   const result = await db.getDb().collection('book').deleteOne({_id: new ObjectId(bookId)});
-  const authorId = new ObjectId(result.userId)
-  const currentUserId = new ObjectId(req.session.user.id) ;
+ 
   
     
      res.json(result);
@@ -182,16 +187,16 @@ routes.post('/signup',async function(req,res){
   const userData = req.body;
   const name = userData.name;
   const email = userData.email;
-  const confirmEmail = userData['confirm-email'];
+  const confirmPassword = userData['confirm-password'];
   const password = userData.password;
 
-  if(!email|| !confirmEmail|| !password|| password.trim()<6|| email !== confirmEmail){
+  if(!email|| !confirmPassword|| !password|| password.trim()<6|| password !== confirmPassword){
     req.session.inputData = {
       hasError: true,
       message: 'invalid inputs- please check your credentials',
       name: name,
       email: email,
-      confirmEmail:confirmEmail,
+      confirmPassword:confirmPassword,
       password: password
     };
 
@@ -204,8 +209,20 @@ routes.post('/signup',async function(req,res){
   const existingUser = await db.getDb().collection('users').findOne({email: email});
 
   if(existingUser){
-   console.log('already user');
-  return res.redirect('/signup');
+    req.session.inputData = {
+      hasError: true,
+      message: 'User already Exist',
+      name: name,
+      email: email,
+      confirmPassword:confirmPassword,
+      password: password
+    };
+
+    req.session.save(function(){
+      res.redirect('/signup');
+    })
+    return
+  
   }
 
   const hashPassword = await bcrypt.hash(password,12);
@@ -232,9 +249,19 @@ routes.post('/login', async function(req,res){
   
   
   if(!existingUser){
-    console.log("Not a user! create a account first");
-    return res.redirect('/login');
+    req.session.inputData = {
+      hasError: true,
+      message: 'invalid inputs- please check your credentials',
+      email: email,
+      password: password
+    };
+
+    req.session.save(function(){
+      res.redirect('/login');
+    })
+    return
   }
+   
 
 
   const equalPassword = await bcrypt.compare(password,existingUser.password);
@@ -254,6 +281,7 @@ routes.post('/login', async function(req,res){
 
 routes.post('/logout', function(req,res){
   req.session.user = null;
+  req.session.authorId = null;
   req.session.isAuthenticated = false;
 
   res.redirect('/');
