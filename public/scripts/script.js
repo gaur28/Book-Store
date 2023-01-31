@@ -1,7 +1,7 @@
 const slider = tns({
   container: ".my-slider",
   mode:"carousel",
-  items:3,
+  items:4,
   responsive:{
     768:{
       items:3

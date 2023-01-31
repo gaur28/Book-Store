@@ -30,6 +30,8 @@ async function submitForm(event ){
             width: 200,
             text: 'Book updated',
             icon: 'success'
+        }).then(function(){
+            window.location.replace("/");
         })
     }
     console.log(enteries);

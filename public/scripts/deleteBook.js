@@ -19,7 +19,10 @@ async function deleteEntery(event){
             width: 600,
             text: 'Book deleted!',
             icon: 'success'
+        }).then(function(){
+            window.location.replace("/");
         });
+        
     }
 }
 deleteFormElement.addEventListener('submit', deleteEntery);

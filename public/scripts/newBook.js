@@ -30,7 +30,10 @@ async function createNewBook(event){
             title: 'Success',
             width: 300,
             text: 'Book updated',
-            icon: 'success'
+            icon: 'success',
+            
+        }).then(function(){
+            window.location.replace("/");
         });
     }
 }
