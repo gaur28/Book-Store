@@ -41,6 +41,7 @@
           </div>
           <div id="search-bar">
             <form action="/searchResults" method="post" class="d-flex">
+              <input type="hidden" name="csrf_token" value="<%= csrfToken %> ">
               <input
                 class="form-control me-2"
                 type="search"

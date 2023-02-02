@@ -1,10 +1,10 @@
 const {render} = require('ejs')
-// const csurf = require('tiny-csrf');
+const csurf = require('tiny-csrf');
 const express = require('express');
 const helmet = require("helmet");
 // const bodyParser = require('body-parser');
 const session = require('express-session');
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const { xss } = require('express-xss-sanitizer');
 const MongoDBStore = require('connect-mongodb-session');
 const fs = require('fs');
@@ -46,12 +46,11 @@ app.use(session({
         // _csrf= req.csrfToken() 
     }
 }));
-// app.use(cookieParser('super cookie secret'));
+app.use(cookieParser('super cookie secret'));
 
-
-// app.use(csurf(
-//     "123456789iamasecret987654321Book"
-// ))
+app.use(csurf(
+    "123456789iamasecret987654321Book"
+))
 
 
 

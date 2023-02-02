@@ -16,6 +16,7 @@
           <% if(locals.isAuth){ %> 
           <li>
             <form action="/logout" method="post">
+              <input type="hidden" name="csrf_token" value="<%= csrfToken %> ">
 
               <button class="btn primary-btn">Logout</button>
             </form> 

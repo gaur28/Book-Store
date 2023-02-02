@@ -58,6 +58,6 @@ const slider2 = tns({
   nextButton:".next1",
   
 
-});
+});  
 
 

@@ -26,6 +26,7 @@
                   <img src="/images/explore-books-logo.png" class="img-responsive" alt="Logo">
               </div>    
               <form action="/Login" method="post" class="rounded bg-white shadow p-5">
+              <input type="hidden" name="csrf_token" value="<%= csrfToken %> ">
 
                   <h3 class="text-dark fw-bolder fs-4 mb-2">Login</h3>
                     <% if(inputData.hasError) {%> 

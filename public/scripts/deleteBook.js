@@ -14,7 +14,7 @@ async function deleteEntery(event){
     console.log(response);
     //const bookDelete = response.json()
     if(response){
-        swal.fire({
+        swal.fire({  
             title: 'Success',
             width: 600,
             text: 'Book deleted!',

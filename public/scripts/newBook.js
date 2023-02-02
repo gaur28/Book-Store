@@ -23,7 +23,7 @@ async function createNewBook(event){
         }
         
         }
-    );
+    );  
     //const newBook = response.json();
     if(response){
         swal.fire({

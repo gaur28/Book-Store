@@ -10,6 +10,7 @@
 
     <main>
         <form  id="main-form" data-postid="<%= book._id %> " class="form-position">
+          <input type="hidden" name="csrf_token" value="<%= csrfToken %> ">
 
             <div class="form-control">
               <label for="title">Title</label>
