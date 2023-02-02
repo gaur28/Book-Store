@@ -13,6 +13,7 @@
     <section>
         <div id="search-bar">
             <form action="/searchResults" method="post" class="d-flex">
+
               <input
                 class="form-control me-2"
                 type="search"
@@ -43,6 +44,7 @@
                 <p class="card-text"><%= book.summary %> </p>
                 <div >
                     <form id="delete-Book" data-postid="<%= book._id %> ">
+
                         <button class="button-links btn btn-primary">Delete Book</button>
                     </form>
                 </div>
