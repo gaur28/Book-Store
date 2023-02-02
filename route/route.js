@@ -1,11 +1,16 @@
 
 const { render } = require("ejs");
+const csrf = require('tiny-csrf');
 const express = require("express");
+const cookieParser = require('cookie-parser');
+const {v4:uuidv4} = require('uuid')
+
 const bcrypt = require('bcryptjs');
 const mongodb = require("mongodb");
 const db = require("../data/database");
 const { default: swal } = require("sweetalert2");
 const ObjectId = mongodb.ObjectId;
+
 
 const routes = express.Router();
 routes.get('/signup', function(req,res){
@@ -20,8 +25,9 @@ routes.get('/signup', function(req,res){
       password: '',
     };
   }req.session.inputData = null;
+  
 
-  res.render('signup', {inputData: sessionInputData});
+  res.render('signup', {inputData: sessionInputData, });
 });
 routes.get('/login', function(req,res){
 
@@ -36,7 +42,7 @@ routes.get('/login', function(req,res){
     };
   }req.session.inputData = null;
 
-  res.render("login",{inputData: sessionInputData});
+  res.render("login",{inputData: sessionInputData, });
 });
 
 routes.post('/createNewBook', async function(req,res){//add user id from users collection
@@ -49,6 +55,7 @@ routes.post('/createNewBook', async function(req,res){//add user id from users c
     
    
   };
+
   console.log(bookInfo);
   const book = await db.getDb().collection('book').insertOne(bookInfo);
   console.log(book);
@@ -69,18 +76,19 @@ routes.get("/", async function (req, res) {
       console.log(currentUserId)
       const myBooks = await db.getDb().collection('book').find({userId: new ObjectId(currentUserId)},{ title: 0, summary: 0,userId:1, name:0,email:0}).toArray();
       console.log(myBooks);
-      return res.render("index", { books: books, mybooks:myBooks});
-  }
-  res.render('index',{books:books})
+      return res.render("index", { books: books, mybooks:myBooks,});
+  } 
+
+  res.render('index',{books:books,})
  
 });
 routes.post('/searchResults', async function(req,res){
   const bookTitle = req.body.searchResult;
   console.log(bookTitle)
   const book = await db.getDb().collection('book').find({title: bookTitle}, {title:1, name:0, summary:0, email:0}).toArray(); 
-  console.log(book)
-  
-  res.render('searchResult', {book:book});
+  console.log(book);
+
+  res.status(200).render('searchResult', {book:book, });
   
   });
 
@@ -101,9 +109,8 @@ routes.get("/bookInfo/:id", async function (req, res) {
     req.session.authorId = {
       id : new ObjectId(book.userId),
     }
-
   req.session.save(function(){
-    res.render("bookInfo", { book: book });
+    res.render("bookInfo", { book: book,  });
   })
 });
 
@@ -116,8 +123,7 @@ routes.get("/editBook/:id", async function (req, res) {
     if(!currentUserId.equals(authorId)){
       return res.status(403).render('403')
     }
-
-    res.render('editBook', {book:book});
+    res.render('editBook', {book:book, });
      
     
     
@@ -133,13 +139,14 @@ routes.post('/editBook/:id', async function(req,res){
 
     }});
     
-    
       res.json({message:'book Edited'});
       
     
 });
 routes.get('/searchResults', function(req,res){
-  res.render('searchResult');
+
+  const csrfToken = csrfToken()
+  res.render('searchResult', {csrfToken: csrfToken});
 });
 
 
@@ -149,7 +156,8 @@ routes.get('/createNewBook', function(req,res){
   if(!req.session.isAuthenticated){
     return res.status(401).render('401');
   }
-  res.render('createNewBook');
+
+  res.render('createNewBook',);
 });
 
 routes.get("/deleteBook/:id", async function (req, res) {
@@ -168,7 +176,7 @@ routes.get("/deleteBook/:id", async function (req, res) {
       return res.status(403).render('403');
     }
   
-  res.render("delete", { book: book });
+  res.render("delete", { book: book,  });
 });
 
 
@@ -176,7 +184,6 @@ routes.post('/deleteBook/:id', async function(req,res){
   const bookId = req.params.id;
   const result = await db.getDb().collection('book').deleteOne({_id: new ObjectId(bookId)});
  
-  
     
      res.json(result);
 
@@ -217,7 +224,6 @@ routes.post('/signup',async function(req,res){
       confirmPassword:confirmPassword,
       password: password
     };
-
     req.session.save(function(){
       res.redirect('/signup');
     })
@@ -276,14 +282,13 @@ routes.post('/login', async function(req,res){
   req.session.save(function(){
     res.redirect('/');
   });
-  
+  return
 });
 
 routes.post('/logout', function(req,res){
   req.session.user = null;
   req.session.authorId = null;
   req.session.isAuthenticated = false;
-
   res.redirect('/');
 });
 
