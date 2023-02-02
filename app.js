@@ -1,6 +1,11 @@
 const {render} = require('ejs')
+// const csurf = require('tiny-csrf');
 const express = require('express');
+const helmet = require("helmet");
+// const bodyParser = require('body-parser');
 const session = require('express-session');
+// const cookieParser = require('cookie-parser');
+const { xss } = require('express-xss-sanitizer');
 const MongoDBStore = require('connect-mongodb-session');
 const fs = require('fs');
 const mongodb = require('mongodb');
@@ -16,22 +21,42 @@ const sessionStore = new MongodbStore({
     collection: 'session'
 });
 
+  
+
+
 const app = express();
+app.use(helmet());
+
+app.use(helmet.frameguard({ action: "SAMEORIGIN" }));
 app.use(express.static('public'));
 
 app.set('views', path.join(__dirname, 'view'));
 app.set('view engine', 'ejs');
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(xss())
 app.use(session({
-    secret: 'super-secret',
+    secret: '23456789iamasecret987654321loook',
     resave:false,
     saveUninitialized: false,
     store:sessionStore,
     cookie: {
-        maxAge:30*24*60*60*1000 
-
+        maxAge:30*24*60*60*1000 ,
+        sameSite: 'lax',
+        // _csrf= req.csrfToken() 
     }
 }));
+// app.use(cookieParser('super cookie secret'));
+
+
+// app.use(csurf(
+//     "123456789iamasecret987654321Book"
+// ))
+
+
+
+
+
 app.use( function(req,res,next){
     //const currentUserId =  req.session.user;
 //     console.log(currentUserId);
@@ -63,7 +88,7 @@ app.use( function(req,res,next){
   });
 
 
-app.use(express.json());
+
 app.use(routes);
 
 db.connectToDatabase().then(function(){
